@@ -22,3 +22,8 @@ export const getNewsByLocation = async (country: string, region: string, city: s
     });
     return response.data.items;
 };
+
+export const searchNews = async (query: string, page: number = 1, limit: number = 10): Promise<NewsArticle[]> => {
+    const response = await api.get('/news/search', { params: { query, page, limit } });
+    return response.data.items;
+};
