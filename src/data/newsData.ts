@@ -14,6 +14,7 @@ export interface NewsArticle {
     time?: string; // legacy support
     image?: string; // legacy support
     category?: string; // legacy support
+    author?: string;
     topics?: string[];
 }
 

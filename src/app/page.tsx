@@ -15,6 +15,15 @@ import { NewsArticle } from "@/data/newsData";
 import Header from "@/components/Header";
 import NewsCard from "@/components/NewsCard";
 
+const TOPICS_TO_FETCH = [
+  { key: "nigeria", label: "Nigeria" },
+  { key: "business", label: "Business" },
+  { key: "technology", label: "Technology" },
+  { key: "finance", label: "Finance" },
+  { key: "music", label: "Music" },
+  { key: "economy", label: "Economy" },
+];
+
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("Home");
   const [categories, setCategories] = useState<Topic[]>([
@@ -30,6 +39,8 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [topicsNewsData, setTopicsNewsData] = useState<Record<string, NewsArticle[]>>({});
+  const [loadingTopics, setLoadingTopics] = useState(false);
 
   useEffect(() => {
     const fetchTopics = async () => {
@@ -59,8 +70,27 @@ export default function Home() {
       }
     };
 
+    const fetchTopicsNews = async () => {
+      setLoadingTopics(true);
+      try {
+        const results = await Promise.all(
+          TOPICS_TO_FETCH.map((topic) => getNewsByTopic(topic.key, 1, 3))
+        );
+        const newData: Record<string, NewsArticle[]> = {};
+        TOPICS_TO_FETCH.forEach((topic, index) => {
+          newData[topic.key] = results[index];
+        });
+        setTopicsNewsData(newData);
+      } catch (error) {
+        console.error("Error fetching topics news:", error);
+      } finally {
+        setLoadingTopics(false);
+      }
+    };
+
     fetchTopics();
     initLocation();
+    fetchTopicsNews();
   }, []);
 
   // Reset state when category changes
@@ -135,7 +165,10 @@ export default function Home() {
           }
           news = await searchNews(term, pageNum, 10);
         } else {
-          const selectedCategory = categories.find((c) => c.label === category);
+          const selectedCategory =
+            categories.find((c) => c.label === category) ||
+            TOPICS_TO_FETCH.find((c) => c.label === category);
+
           if (selectedCategory) {
             news = await getNewsByTopic(selectedCategory.key, pageNum, 10);
           }
@@ -279,6 +312,56 @@ export default function Home() {
                 ))}
               </div>
             </div>
+
+            {/* Your topics Section */}
+            <div className="pt-8 border-t border-[#3c4043] space-y-8">
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <h2 className="text-2xl text-white font-normal">Your topics</h2>
+                  <p className="text-sm text-[#9aa0a6] flex items-center gap-1">
+                    Recommended based on your interests
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </p>
+                </div>
+                <button className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#3c4043] text-white text-sm hover:bg-[#303134] transition-colors">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                  </svg>
+                  Customise
+                </button>
+              </div>
+
+              {loadingTopics ? (
+                <div className="text-[#9aa0a6] text-sm">Loading topics...</div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {TOPICS_TO_FETCH.map((topic) => (
+                    <div key={topic.key} className="bg-[#292a2d] rounded-xl p-6 space-y-6">
+                      <button
+                        onClick={() => setActiveCategory(topic.label)}
+                        className="flex items-center gap-2 text-white text-xl font-normal hover:text-[#8ab4f8] transition-colors"
+                      >
+                        {topic.label}
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                      <div className="space-y-4">
+                        {(topicsNewsData[topic.key] || []).map((article) => (
+                          <NewsCard
+                            key={article.id}
+                            article={article}
+                            variant="small"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -289,7 +372,7 @@ export default function Home() {
         )}
 
         {/* Load More Button */}
-        {hasMore && (
+        {hasMore && activeCategory !== "Home" && (
           <div className="flex justify-center py-8">
             <button
               onClick={loadMoreData}
