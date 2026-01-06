@@ -14,6 +14,7 @@ import { getUserLocation, UserLocation } from "@/api/location";
 import { NewsArticle } from "@/data/newsData";
 import Header from "@/components/Header";
 import NewsCard from "@/components/NewsCard";
+import AdSection from "@/components/AdSection";
 
 const TOPICS_TO_FETCH = [
   { key: "nigeria", label: "Nigeria" },
@@ -298,6 +299,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            {/* Ad Section */}
+            <AdSection />
 
             {/* Latest News Section (Paginated Trending) */}
             <div className="space-y-4">
