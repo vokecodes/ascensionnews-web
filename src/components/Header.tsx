@@ -6,6 +6,8 @@ import { Topic } from "@/api/topics";
 import { AuthUser } from "@/api/auth";
 import { useAuthStore } from "@/store/useAuthStore";
 import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface HeaderProps {
   activeCategory: string;
@@ -27,6 +29,7 @@ export default function Header({
   const user = useAuthStore((state) => state.user);
   const clearAuth = useAuthStore((state) => state.clearAuth);
   const hydrate = useAuthStore((state) => state.hydrateFromStorage);
+  const router = useRouter();
 
   useEffect(() => {
     hydrate();
@@ -66,9 +69,11 @@ export default function Header({
       {/* Mobile Top Bar */}
       <div className="px-4 py-3 flex flex-col gap-3 lg:hidden">
         <div className="flex items-center justify-between gap-4 relative">
-          <h1 className="text-white text-xl font-normal whitespace-nowrap">
-            Ascension News
-          </h1>
+          <Link href="/" className="hover:opacity-80 transition-opacity">
+            <h1 className="text-white text-xl font-normal whitespace-nowrap">
+              Ascension News
+            </h1>
+          </Link>
 
           <div className="flex items-center gap-3 relative">
             {user ? (
@@ -178,9 +183,11 @@ export default function Header({
 
       {/* Desktop Top Bar (original layout) */}
       <div className="hidden lg:flex items-center justify-between px-6 py-3 gap-6">
-        <h1 className="text-white text-xl font-normal whitespace-nowrap">
-          Ascension News
-        </h1>
+        <Link href="/" className="hover:opacity-80 transition-opacity">
+          <h1 className="text-white text-xl font-normal whitespace-nowrap">
+            Ascension News
+          </h1>
+        </Link>
 
         <form className="mt-0 relative flex-1 max-w-3xl" onSubmit={submitSearch}>
           <input
@@ -275,12 +282,18 @@ export default function Header({
         {categories.map((category) => (
           <button
             key={category.key}
-            onClick={() => setActiveCategory(category.label)}
-            className={`px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors flex items-center gap-2 ${
-              activeCategory === category.label
+            onClick={() => {
+              if (window.location.pathname !== "/") {
+                router.push("/");
+                setTimeout(() => setActiveCategory(category.label), 100);
+              } else {
+                setActiveCategory(category.label);
+              }
+            }}
+            className={`px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors flex items-center gap-2 ${activeCategory === category.label
                 ? "text-[#8ab4f8] border-b-2 border-[#8ab4f8]"
                 : "text-[#e8eaed] hover:text-white"
-            }`}
+              }`}
           >
             {category.emoji && <span>{category.emoji}</span>}
             {category.label}

@@ -23,6 +23,10 @@ export interface ResetPasswordPayload {
     code: string;
 }
 
+export interface DeleteAccountPayload {
+    email: string;
+}
+
 export interface AuthUser {
     _id: string;
     email: string;
@@ -73,5 +77,10 @@ export const requestPasswordReset = async (payload: ForgotPasswordPayload): Prom
 
 export const resetPassword = async (payload: ResetPasswordPayload): Promise<AuthResponse> => {
     const response = await api.post('/auth/reset-password', payload);
+    return response.data;
+};
+
+export const deleteAccount = async (payload: DeleteAccountPayload): Promise<AuthResponse> => {
+    const response = await api.post('/user/delete-account', payload);
     return response.data;
 };
