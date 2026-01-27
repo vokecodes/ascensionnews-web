@@ -127,7 +127,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <p className="text-sm text-[#9aa0a6] mb-1">Office Location</p>
-                                    <p className="text-white font-medium">Lagos, Nigeria</p>
+                                    <p className="text-white font-medium">Sacramento, California, USA</p>
                                 </div>
                             </div>
 
