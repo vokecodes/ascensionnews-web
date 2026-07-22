@@ -17,6 +17,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Ascension News",
   description: "Your one stop for news and updates.",
+  other: {
+    "google-adsense-account": "ca-pub-5545303470519899",
+  },
 };
 
 export default function RootLayout({
