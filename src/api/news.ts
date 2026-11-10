@@ -27,3 +27,13 @@ export const searchNews = async (query: string, page: number = 1, limit: number 
     const response = await api.get('/news/search', { params: { query, page, limit } });
     return response.data.items;
 };
+
+export const getNewsById = async (id: string): Promise<NewsArticle | null> => {
+    try {
+        const response = await api.get(`/news/${id}`);
+        return response.data?.item || response.data || null;
+    } catch (error) {
+        console.error("Error fetching news by id:", error);
+        return null;
+    }
+};

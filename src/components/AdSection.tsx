@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 interface AdSectionProps {
+    tag?: string;
     title?: string;
     description?: string;
     ctaText?: string;
@@ -12,11 +13,12 @@ interface AdSectionProps {
 }
 
 export default function AdSection({
-    title = "Timeless Elegance & Precision",
-    description = "Experience the pinnacle of craftsmanship with the new Aurum & Co. collection. A legacy carved in 18k gold.",
-    ctaText = "Discover the Collection",
-    image = "/ads/luxury_watch.png",
-    link = "#",
+    tag = "Editorial Spotlight",
+    title = "African News & Market Intelligence, Curated Daily",
+    description = "Stay informed with verified reporting, macroeconomic updates, and technology briefings aggregated from over 50 trusted publications across the African continent.",
+    ctaText = "About Our Mission",
+    image = "/news/politics2.jpg",
+    link = "/about",
     className = "",
 }: AdSectionProps) {
     return (
@@ -32,32 +34,32 @@ export default function AdSection({
                 />
 
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20" />
 
                 {/* Content Container */}
                 <div className="absolute inset-0 flex flex-col justify-center px-8 md:px-12 max-w-2xl">
                     <div className="inline-flex items-center gap-2 mb-4">
-                        <span className="px-2 py-0.5 text-[10px] uppercase tracking-wider font-semibold bg-[#8ab4f8]/20 text-[#8ab4f8] border border-[#8ab4f8]/30 rounded">
-                            Sponsored
+                        <span className="px-2.5 py-0.5 text-[11px] uppercase tracking-wider font-semibold bg-[#8ab4f8]/20 text-[#8ab4f8] border border-[#8ab4f8]/30 rounded">
+                            {tag}
                         </span>
                     </div>
 
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                    <h2 className="text-2xl md:text-4xl font-bold text-white mb-3 leading-tight">
                         {title}
                     </h2>
 
-                    <p className="text-lg text-gray-300 mb-8 line-clamp-2 md:line-clamp-none max-w-lg">
+                    <p className="text-sm md:text-base text-gray-300 mb-6 line-clamp-2 md:line-clamp-none max-w-lg leading-relaxed">
                         {description}
                     </p>
 
                     <div>
                         <a
                             href={link}
-                            className="inline-flex items-center px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-[#8ab4f8] hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-lg"
+                            className="inline-flex items-center px-6 py-2.5 bg-white text-black text-sm font-semibold rounded-full hover:bg-[#8ab4f8] hover:text-white transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg"
                         >
                             {ctaText}
                             <svg
-                                className="ml-2 w-5 h-5"
+                                className="ml-2 w-4 h-4"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"

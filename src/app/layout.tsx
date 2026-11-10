@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import Script from "next/script";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ascension News",
-  description: "Your one stop for news and updates.",
+  title: "Ascension News | African & Global News Intelligence",
+  description:
+    "Curated real-time news briefings, business updates, and technology trends across Africa and global markets.",
   other: {
     "google-adsense-account": "ca-pub-5545303470519899",
   },
@@ -52,10 +54,11 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-[#202124] text-white`}
       >
         <Toaster position="top-center" theme="dark" richColors />
-        {children}
+        <div className="flex-1">{children}</div>
+        <Footer />
       </body>
     </html>
   );

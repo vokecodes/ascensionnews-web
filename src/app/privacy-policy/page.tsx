@@ -207,7 +207,24 @@ export default function PrivacyPolicy() {
                     <section id="cookies" className="space-y-4">
                         <h2 className="text-2xl font-semibold text-white">6. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?</h2>
                         <p><span className="font-bold">In Short:</span> We may use cookies and other tracking technologies to collect and store your information.</p>
-                        <p>We use Google Analytics to track and analyse the use of the Services. You can opt out of being tracked by Google Analytics at <a href="https://tools.google.com/dlpage/gaoptout" className="text-[#8ab4f8] hover:underline">https://tools.google.com/dlpage/gaoptout</a>.</p>
+                        <p>We use cookies, web beacons, and tracking technologies to optimize performance, remember your preferences, analyse website traffic, and deliver relevant advertisements.</p>
+
+                        <h3 className="text-lg font-medium text-white">Google Analytics</h3>
+                        <p>We use Google Analytics to track and analyse the use of the Services. You can opt out of being tracked by Google Analytics at <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-[#8ab4f8] hover:underline">https://tools.google.com/dlpage/gaoptout</a>.</p>
+
+                        <h3 className="text-lg font-medium text-white">Google AdSense &amp; Advertising Cookies</h3>
+                        <p>We use third-party advertising companies, including Google AdSense, to serve ads when you visit our website. These companies may use cookies and web beacons to collect information (such as your IP address, browser type, and interaction data) to serve ads tailored to your interests based on your prior visits to this website or other sites across the Internet.</p>
+                        <ul className="list-disc pl-6 space-y-2 text-[#9aa0a6]">
+                            <li>
+                                <strong className="text-white">Google and Third-Party Advertising:</strong> Third-party vendors, including Google, use cookies (such as the DoubleClick DART cookie) to serve ads based on a user&apos;s prior visits to our website or other websites on the internet.
+                            </li>
+                            <li>
+                                <strong className="text-white">Personalized Advertising:</strong> Google&apos;s use of advertising cookies enables it and its partners to serve ads to our users based on their visits to our website and/or other sites on the Internet.
+                            </li>
+                            <li>
+                                <strong className="text-white">Opting Out:</strong> Users may opt out of personalized advertising by visiting Google&apos;s <a href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer" className="text-[#8ab4f8] hover:underline">My Ad Center / Ads Settings</a>. Alternatively, users can opt out of a third-party vendor&apos;s use of cookies for personalized advertising by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-[#8ab4f8] hover:underline">www.aboutads.info</a> or the <a href="https://optout.networkadvertising.org/" target="_blank" rel="noopener noreferrer" className="text-[#8ab4f8] hover:underline">Network Advertising Initiative Consumer Opt-Out</a>.
+                            </li>
+                        </ul>
                     </section>
 
                     <section id="ai-products" className="space-y-4">

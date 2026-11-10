@@ -75,6 +75,21 @@ export default function Header({
             </h1>
           </Link>
 
+          <div className="flex items-center gap-2">
+            <Link
+              href="/about"
+              className="text-xs text-[#9aa0a6] hover:text-white px-2 py-1 rounded transition-colors"
+            >
+              About
+            </Link>
+            <Link
+              href="/contact"
+              className="text-xs text-[#9aa0a6] hover:text-white px-2 py-1 rounded transition-colors"
+            >
+              Contact
+            </Link>
+          </div>
+
           <div className="flex items-center gap-3 relative">
             {user ? (
               <>
@@ -213,7 +228,22 @@ export default function Header({
           </button>
         </form>
 
-        <div className="flex items-center gap-4 relative">
+        <div className="flex items-center gap-5 relative">
+          <nav className="flex items-center gap-4 text-sm text-[#9aa0a6] mr-2">
+            <Link
+              href="/about"
+              className="hover:text-white transition-colors"
+            >
+              About
+            </Link>
+            <Link
+              href="/contact"
+              className="hover:text-white transition-colors"
+            >
+              Contact
+            </Link>
+          </nav>
+
           {user ? (
             <>
               <button

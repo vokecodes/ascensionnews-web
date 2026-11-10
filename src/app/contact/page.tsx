@@ -21,7 +21,6 @@ export default function ContactPage() {
         message: "",
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
     useEffect(() => {
         const fetchTopics = async () => {
@@ -50,7 +49,6 @@ export default function ContactPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        setSubmitStatus("idle");
 
         // Actual API call
         try {
@@ -58,24 +56,23 @@ export default function ContactPage() {
             toast.success("Message sent successfully!", {
                 description: "We'll get back to you soon.",
             });
-            setSubmitStatus("success");
             setFormData({ name: "", email: "", subject: "", message: "" });
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Support submission error:", error);
-            const apiErrors = error.response?.data?.errors;
+            const err = error as { response?: { data?: { errors?: Array<{ message?: string }> } } };
+            const apiErrors = err.response?.data?.errors;
 
             console.log("Support submission apiErrors:", apiErrors);
 
             if (Array.isArray(apiErrors) && apiErrors.length > 0) {
-                apiErrors.forEach((err: any) => {
-                    toast.error(err.message || "An error occurred");
+                apiErrors.forEach((apiErr: { message?: string }) => {
+                    toast.error(apiErr.message || "An error occurred");
                 });
             } else {
                 toast.error("Failed to send message", {
                     description: "Please try again later or contact us directly via email.",
                 });
             }
-            setSubmitStatus("error");
         } finally {
             setIsSubmitting(false);
         }

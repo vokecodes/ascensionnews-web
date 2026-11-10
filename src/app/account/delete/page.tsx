@@ -36,8 +36,9 @@ export default function DeleteAccountPage() {
             setTimeout(() => {
                 router.push("/");
             }, 3000);
-        } catch (error: any) {
-            const message = error.response?.data?.message || "Failed to delete account. Please try again.";
+        } catch (error: unknown) {
+            const err = error as { response?: { data?: { message?: string } } };
+            const message = err.response?.data?.message || "Failed to delete account. Please try again.";
             toast.error(message);
         } finally {
             setIsDeleting(false);
