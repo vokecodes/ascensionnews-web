@@ -6,6 +6,7 @@ import { getTopics, Topic } from "@/api/topics";
 import { useRouter } from "next/navigation";
 import { sendSupportRequest } from "@/api/support";
 import { toast } from "sonner";
+import GoogleAd from "@/components/GoogleAd";
 
 export default function ContactPage() {
     const [categories, setCategories] = useState<Topic[]>([
@@ -229,6 +230,16 @@ export default function ContactPage() {
                             </form>
                         </div>
                     </div>
+                </div>
+
+                {/* Ad below the contact grid */}
+                <div className="mt-12">
+                    <GoogleAd
+                        slot="8378639655"
+                        format="horizontal"
+                        className="rounded-xl bg-[#292a2d] py-2"
+                        minHeight={90}
+                    />
                 </div>
             </main>
         </div>

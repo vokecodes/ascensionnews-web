@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { getTopics, Topic } from "@/api/topics";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import GoogleAd from "@/components/GoogleAd";
 
 export default function AboutPage() {
   const [categories, setCategories] = useState<Topic[]>([
@@ -115,6 +116,14 @@ export default function AboutPage() {
               </p>
             </div>
           </section>
+
+          {/* Ad between pillars and editorial standards */}
+          <GoogleAd
+            slot="8378639655"
+            format="horizontal"
+            className="rounded-xl bg-[#292a2d] py-2"
+            minHeight={90}
+          />
 
           {/* Editorial Standards & Sourcing */}
           <section id="editorial" className="space-y-6 pt-6 border-t border-[#3c4043]">

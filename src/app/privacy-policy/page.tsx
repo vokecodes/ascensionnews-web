@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import { getTopics, Topic } from "@/api/topics";
 import { useRouter } from "next/navigation";
+import GoogleAd from "@/components/GoogleAd";
 
 export default function PrivacyPolicy() {
     const [categories, setCategories] = useState<Topic[]>([
@@ -128,6 +129,14 @@ export default function PrivacyPolicy() {
                             <li><a href="#review-data" className="hover:underline">HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?</a></li>
                         </ol>
                     </section>
+
+                    {/* Ad after table of contents */}
+                    <GoogleAd
+                        slot="6406423290"
+                        format="auto"
+                        className="rounded-xl bg-[#292a2d] py-2"
+                        minHeight={250}
+                    />
 
                     <section id="info-collect" className="space-y-4">
                         <h2 className="text-2xl font-semibold text-white">1. WHAT INFORMATION DO WE COLLECT?</h2>

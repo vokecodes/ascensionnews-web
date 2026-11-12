@@ -15,6 +15,7 @@ import { NewsArticle } from "@/data/newsData";
 import Header from "@/components/Header";
 import NewsCard from "@/components/NewsCard";
 import AdSection from "@/components/AdSection";
+import GoogleAd from "@/components/GoogleAd";
 
 const TOPICS_TO_FETCH = [
   { key: "nigeria", label: "Nigeria" },
@@ -300,14 +301,22 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Ad Section */}
+            {/* Ad Section (editorial banner) */}
             <AdSection />
+
+            {/* Leaderboard Ad — between banner and Latest News */}
+            <GoogleAd
+              slot="8378639655"
+              format="horizontal"
+              className="rounded-xl bg-[#292a2d] py-2"
+              minHeight={90}
+            />
 
             {/* Latest News Section (Paginated Trending) */}
             <div className="space-y-4">
               <h2 className="text-xl text-white font-medium">Latest News</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {trendingNews.map((article) => (
+                {trendingNews.slice(0, 6).map((article) => (
                   <NewsCard
                     key={article.id}
                     article={article}
@@ -315,27 +324,47 @@ export default function Home() {
                   />
                 ))}
               </div>
+
+              {/* In-feed ad after first 6 articles */}
+              {trendingNews.length > 6 && (
+                <>
+                  <GoogleAd
+                    slot="6406423290"
+                    format="fluid"
+                    className="rounded-xl bg-[#292a2d] py-2"
+                    minHeight={250}
+                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {trendingNews.slice(6).map((article) => (
+                      <NewsCard
+                        key={article.id}
+                        article={article}
+                        variant="small"
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Your topics Section */}
-            <div className="pt-8 border-t border-[#3c4043] space-y-8">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <h2 className="text-2xl text-white font-normal">Your topics</h2>
-                  <p className="text-sm text-[#9aa0a6] flex items-center gap-1">
-                    Recommended based on your interests
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </p>
-                </div>
-                <button className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#3c4043] text-white text-sm hover:bg-[#303134] transition-colors">
+            <div className="pt-8 border-t border-[#3c4043] space-y-8">              <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <h2 className="text-2xl text-white font-normal">Your topics</h2>
+                <p className="text-sm text-[#9aa0a6] flex items-center gap-1">
+                  Recommended based on your interests
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  Customise
-                </button>
+                </p>
               </div>
+              <button className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#3c4043] text-white text-sm hover:bg-[#303134] transition-colors">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                </svg>
+                Customise
+              </button>
+            </div>
 
               {loadingTopics ? (
                 <div className="text-[#9aa0a6] text-sm">Loading topics...</div>
@@ -368,10 +397,19 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {topicNews.map((article) => (
-              <NewsCard key={article.id} article={article} variant="small" />
-            ))}
+          <div className="space-y-6">
+            {/* Rectangle ad at top of topic feed */}
+            <GoogleAd
+              slot="6406423290"
+              format="auto"
+              className="rounded-xl bg-[#292a2d] py-2"
+              minHeight={250}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {topicNews.map((article) => (
+                <NewsCard key={article.id} article={article} variant="small" />
+              ))}
+            </div>
           </div>
         )}
 

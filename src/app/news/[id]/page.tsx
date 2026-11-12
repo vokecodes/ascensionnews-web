@@ -7,6 +7,7 @@ import Link from "next/link";
 import moment from "moment";
 import Header from "@/components/Header";
 import NewsCard from "@/components/NewsCard";
+import GoogleAd from "@/components/GoogleAd";
 import { getTopics, Topic } from "@/api/topics";
 import { getNewsById, getTrendingNews } from "@/api/news";
 import { NewsArticle } from "@/data/newsData";
@@ -215,6 +216,14 @@ export default function ArticleDetailPage() {
           </div>
         )}
 
+        {/* Leaderboard Ad — below hero image, before article body */}
+        <GoogleAd
+          slot="8378639655"
+          format="horizontal"
+          className="rounded-xl bg-[#292a2d] py-2"
+          minHeight={90}
+        />
+
         {/* Editorial Synopsis / Article Content */}
         <article className="space-y-6 text-[#d2d6dc] text-base md:text-lg leading-relaxed bg-[#292a2d] p-6 md:p-8 rounded-2xl border border-[#3c4043]">
           <div className="flex items-center justify-between pb-4 border-b border-[#3c4043]">
@@ -283,6 +292,15 @@ export default function ArticleDetailPage() {
         {relatedNews.length > 0 && (
           <section className="space-y-4 pt-8 border-t border-[#3c4043]">
             <h2 className="text-xl font-medium text-white">Related Stories</h2>
+
+            {/* Rectangle ad above related stories */}
+            <GoogleAd
+              slot="6406423290"
+              format="auto"
+              className="rounded-xl bg-[#292a2d] py-2"
+              minHeight={250}
+            />
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {relatedNews.map((story) => (
                 <NewsCard key={story.id} article={story} variant="small" />
